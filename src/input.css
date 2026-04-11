@@ -51,7 +51,7 @@
   .amurot-reveal {
     opacity: 0;
     transform: translate3d(0, 10px, 0);
-    filter: blur(10px);
+    filter: blur(20px);
     transition:
       opacity 700ms cubic-bezier(0.2, 0.8, 0.2, 1),
       transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1),

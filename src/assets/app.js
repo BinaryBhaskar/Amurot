@@ -539,7 +539,7 @@
     const mid = window.innerHeight * 0.5;
 
     // Active once the card's top passes the midline and a bit (and the card is still visible).
-    const active = rect.top < mid - 300 && rect.bottom > 0;
+    const active = rect.top < mid - 100 && rect.bottom > 0;
     if (active === scrollActive) return;
     scrollActive = active;
     updateMorphTarget();
