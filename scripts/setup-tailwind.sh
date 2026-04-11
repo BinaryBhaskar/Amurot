@@ -45,7 +45,24 @@ if [[ -z "$expected" ]]; then
   exit 1
 fi
 
-actual="$(shasum -a 256 "$BIN_PATH" | awk '{print $1}')"
+sha256() {
+  local file="$1"
+
+  if command -v shasum >/dev/null 2>&1; then
+    shasum -a 256 "$file" | awk '{print $1}'
+    return 0
+  fi
+
+  if command -v sha256sum >/dev/null 2>&1; then
+    sha256sum "$file" | awk '{print $1}'
+    return 0
+  fi
+
+  echo "Neither 'shasum' nor 'sha256sum' is available to verify downloads" >&2
+  return 1
+}
+
+actual="$(sha256 "$BIN_PATH")"
 if [[ "$expected" != "$actual" ]]; then
   echo "Checksum mismatch for tailwindcss binary" >&2
   echo "Expected: $expected" >&2

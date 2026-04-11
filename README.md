@@ -26,6 +26,15 @@ If you're using the VS Code Live Server extension to serve `src/index.html`, run
 bash scripts/build.sh
 ```
 
+### NPM scripts (for Vercel / CI)
+
+This repo includes a minimal [package.json](package.json) so platforms like Vercel can run the build automatically:
+
+```bash
+npm run dev
+npm run build
+```
+
 Build output is written to `dist/`.
 
 To preview the production build:
@@ -34,6 +43,13 @@ To preview the production build:
 cd dist
 python3 -m http.server 8080
 ```
+
+## Deploy to Vercel
+
+- Import the repo into Vercel.
+- The defaults should be auto-detected via [vercel.json](vercel.json):
+	- Build Command: `npm run build`
+	- Output Directory: `dist`
 
 ## Notes
 
