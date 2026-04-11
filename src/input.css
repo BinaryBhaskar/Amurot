@@ -117,3 +117,12 @@
     }
   }
 }
+
+/* Custom utility for hero height minus header */
+.hero-minus-header {
+  position: relative;
+  height: calc(100vh - 65px); /* Adjust 65px to match your header height */
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+}
