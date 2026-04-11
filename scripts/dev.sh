@@ -9,18 +9,19 @@ bash "$ROOT_DIR/scripts/setup-tailwind.sh"
 
 mkdir -p "$SRC_DIR/assets"
 
+# Run Tailwind CSS watch in the background
 "$TAILWIND_BIN" \
   -i "$SRC_DIR/input.css" \
   -o "$SRC_DIR/assets/styles.css" \
-  --watch \
-  --content "$SRC_DIR/index.html" &
+  --watch &
 TAILWIND_PID=$!
 
 cleanup() {
+  echo "Stopping Tailwind CSS watcher..."
   kill "$TAILWIND_PID" 2>/dev/null || true
 }
 trap cleanup EXIT
 
-echo "Serving http://localhost:8080 (src/)"
-cd "$SRC_DIR"
-python3 -m http.server 8080
+echo "Starting Jekyll server..."
+cd "$ROOT_DIR"
+bundle exec jekyll serve --livereload

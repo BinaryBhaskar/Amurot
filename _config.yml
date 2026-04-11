@@ -1,0 +1,24 @@
+title: Amurot
+description: >- # this means to ignore newlines until "baseurl:"
+  Amurot builds intelligent, minimal utility apps for calm productivity and smart workflows.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
+
+source: src
+destination: _site
+
+# Exclude some folders from Jekyll build process
+exclude:
+  - ".sass-cache"
+  - ".jekyll-cache"
+  - "gemfiles"
+  - "Gemfile"
+  - "Gemfile.lock"
+  - "node_modules"
+  - "vendor/bundle/"
+  - "vendor/cache/"
+  - "vendor/gems/"
+  - "vendor/ruby/"
+  - "input.css"
+
+# Disable default layout for assets if needed (usually handled automatically, but good to ensure css/js are copied without layout headers)

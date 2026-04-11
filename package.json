@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "bash scripts/dev.sh",
     "build": "bash scripts/build.sh",
-    "preview": "cd dist && python3 -m http.server 8080"
+    "preview": "cd _site && python3 -m http.server 8080"
   },
   "engines": {
     "node": ">=18"
