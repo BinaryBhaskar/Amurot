@@ -8,14 +8,14 @@ TAILWIND_BIN="$ROOT_DIR/tools/tailwindcss"
 
 bash "$ROOT_DIR/scripts/setup-tailwind.sh"
 
-echo "Building Tailwind CSS..."
-"$TAILWIND_BIN" \
-  -i "$SRC_DIR/input.css" \
-  -o "$SRC_DIR/_includes/tailwind.css" \
-  --minify
-
 echo "Building Jekyll site..."
 cd "$ROOT_DIR"
 bundle exec jekyll build
+
+echo "Building Tailwind CSS..."
+"$TAILWIND_BIN" \
+  -i "$SRC_DIR/input.css" \
+  -o "$DIST_DIR/assets/styles.css" \
+  --minify
 
 echo "Built production site in: $DIST_DIR"

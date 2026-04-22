@@ -12,7 +12,7 @@ mkdir -p "$SRC_DIR/assets"
 # Run Tailwind CSS watch in the background
 "$TAILWIND_BIN" \
   -i "$SRC_DIR/input.css" \
-  -o "$SRC_DIR/_includes/tailwind.css" \
+  -o "$SRC_DIR/assets/styles.css" \
   --watch &
 TAILWIND_PID=$!
 
