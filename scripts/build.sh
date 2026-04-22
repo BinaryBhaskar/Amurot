@@ -11,7 +11,7 @@ bash "$ROOT_DIR/scripts/setup-tailwind.sh"
 echo "Building Tailwind CSS..."
 "$TAILWIND_BIN" \
   -i "$SRC_DIR/input.css" \
-  -o "$SRC_DIR/assets/styles.css" \
+  -o "$SRC_DIR/_includes/tailwind.css" \
   --minify
 
 echo "Building Jekyll site..."
