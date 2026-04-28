@@ -2,36 +2,25 @@
 
 Premium, minimal single-page website for the Amurot brand.
 
-## Run locally (no Node required)
+## Run locally
 
-### 1) Dev (watch Tailwind + local server)
-
-```bash
-bash scripts/dev.sh
-```
-
-Then open `http://localhost:8080`.
-
-### Live Server (VS Code)
-
-If you're using the VS Code Live Server extension to serve `src/index.html`, run Tailwind in watch mode like this:
+### 1) Install
 
 ```bash
-./tools/tailwindcss -i ./src/input.css -o ./src/assets/styles.css --watch --content ./src/index.html
+npm install
 ```
 
-### 2) Production build
-
-```bash
-bash scripts/build.sh
-```
-
-### NPM scripts (for Vercel / CI)
-
-This repo includes a minimal [package.json](package.json) so platforms like Vercel can run the build automatically:
+### 2) Dev
 
 ```bash
 npm run dev
+```
+
+Then open the URL Vite prints (typically `http://localhost:5173`).
+
+### 3) Production build
+
+```bash
 npm run build
 ```
 
@@ -40,8 +29,7 @@ Build output is written to `dist/`.
 To preview the production build:
 
 ```bash
-cd dist
-python3 -m http.server 8080
+npm run preview
 ```
 
 ## Deploy to Vercel
@@ -54,4 +42,4 @@ python3 -m http.server 8080
 ## Notes
 
 - DM Sans is loaded from Google Fonts.
-- Tailwind is compiled using the official standalone Tailwind CSS v4.0.0 CLI binary (downloaded on first run).
+- The previous Jekyll source is preserved in `legacy-jekyll-src/`.

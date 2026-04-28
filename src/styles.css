@@ -1,7 +1,5 @@
 @import "tailwindcss";
-@source ".";
-@source "_includes";
-@source "_layouts";
+@source "./**/*.{js,jsx,ts,tsx,html}";
 
 @theme {
   --font-sans: "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -121,10 +119,9 @@
   }
 }
 
-/* Custom utility for hero height minus header */
 .hero-minus-header {
   position: relative;
-  height: calc(100vh - 65px); /* Adjust 65px to match your header height */
+  height: calc(100vh - 65px);
   min-height: 400px;
   display: flex;
   align-items: center;

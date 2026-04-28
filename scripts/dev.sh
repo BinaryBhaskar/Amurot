@@ -2,26 +2,17 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-SRC_DIR="$ROOT_DIR/src"
-TAILWIND_BIN="$ROOT_DIR/tools/tailwindcss"
 
-bash "$ROOT_DIR/scripts/setup-tailwind.sh"
-
-mkdir -p "$SRC_DIR/assets"
-
-# Run Tailwind CSS watch in the background
-"$TAILWIND_BIN" \
-  -i "$SRC_DIR/input.css" \
-  -o "$SRC_DIR/assets/styles.css" \
-  --watch &
-TAILWIND_PID=$!
-
-cleanup() {
-  echo "Stopping Tailwind CSS watcher..."
-  kill "$TAILWIND_PID" 2>/dev/null || true
-}
-trap cleanup EXIT
-
-echo "Starting Jekyll server..."
 cd "$ROOT_DIR"
-bundle exec jekyll serve --livereload
+
+if ! command -v npm >/dev/null 2>&1; then
+  echo "npm is required to run the dev server" >&2
+  exit 1
+fi
+
+if [[ ! -d node_modules ]]; then
+  npm install
+fi
+
+echo "Starting Vite dev server..."
+npm run dev -- --port 5173
