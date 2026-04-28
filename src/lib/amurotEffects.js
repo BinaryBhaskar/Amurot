@@ -159,8 +159,14 @@ export function initAmurotEffects() {
 
     const getPalette = () => {
       const styles = getComputedStyle(document.documentElement);
-      const zinc = styles.getPropertyValue('--color-zinc-500').trim() || '#71717a';
-      const zincStrong = styles.getPropertyValue('--color-zinc-800').trim() || '#27272a';
+      const isDark = document.documentElement.classList.contains('dark');
+
+      const zinc =
+        (isDark ? styles.getPropertyValue('--color-zinc-300').trim() : styles.getPropertyValue('--color-zinc-500').trim()) ||
+        (isDark ? '#d4d4d8' : '#71717a');
+      const zincStrong =
+        (isDark ? styles.getPropertyValue('--color-zinc-100').trim() : styles.getPropertyValue('--color-zinc-800').trim()) ||
+        (isDark ? '#f4f4f5' : '#27272a');
       const sky = styles.getPropertyValue('--color-sky-400').trim() || '#38bdf8';
       const violet = styles.getPropertyValue('--color-violet-400').trim() || '#a78bfa';
       const cyan = styles.getPropertyValue('--color-cyan-400').trim() || '#22d3ee';
@@ -168,6 +174,7 @@ export function initAmurotEffects() {
     };
 
     let palette = getPalette();
+    let themeObserver = null;
 
     const rectDistance = (x, y, r) => {
       const dx = x < r.left ? r.left - x : x > r.right ? x - r.right : 0;
@@ -245,10 +252,13 @@ export function initAmurotEffects() {
     const drawStatic = () => {
       ctx.clearRect(0, 0, width, height);
       ctx.fillStyle = palette.zinc;
+      const isDark = document.documentElement.classList.contains('dark');
+      const baseAlpha = isDark ? 0.36 : 0.42;
+      const r = isDark ? 1.2 : 1.05;
       for (const p of scatterPoints) {
-        ctx.globalAlpha = 0.58 * dotAlphaMask(p.x, p.y);
+        ctx.globalAlpha = baseAlpha * dotAlphaMask(p.x, p.y);
         ctx.beginPath();
-        ctx.arc(p.x, p.y, 1.2, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
         ctx.fill();
       }
       ctx.globalAlpha = 1;
@@ -409,6 +419,8 @@ export function initAmurotEffects() {
       raf = 0;
       if (!running) return;
 
+      const isDark = document.documentElement.classList.contains('dark');
+
       morph += (morphTarget - morph) * 0.06;
       morph = clamp(morph, 0, 1);
 
@@ -453,8 +465,8 @@ export function initAmurotEffects() {
                 ? palette.cyan
                 : palette.zincStrong;
 
-        const base = 0.52;
-        const accentAlpha = 0.32;
+        const base = isDark ? 0.56 : 0.72;
+        const accentAlpha = isDark ? 0.32 : 0.26;
         const mask = dotAlphaMask(p.x, p.y);
         ctx.globalAlpha = (p.accent === 'zinc' ? base : accentAlpha) * mask;
         ctx.fillStyle = color;
@@ -464,7 +476,7 @@ export function initAmurotEffects() {
       }
 
       if ((pointer.active || morphTarget === 1) && logoOutlinePoints.length) {
-        const outlineAlpha = 0.16 * morph;
+        const outlineAlpha = (isDark ? 0.18 : 0.14) * morph;
         if (outlineAlpha > 0.01) {
           ctx.fillStyle = palette.zincStrong;
           for (const o of logoOutlinePoints) {
@@ -568,6 +580,11 @@ export function initAmurotEffects() {
       drawStatic();
     };
 
+    const onThemeChange = () => {
+      palette = getPalette();
+      if (!running) drawStatic();
+    };
+
     const onPointerEnter = (e) => {
       pointer.active = true;
       setPointer(e);
@@ -628,6 +645,15 @@ export function initAmurotEffects() {
       if (scrollRaf) cancelAnimationFrame(scrollRaf);
       stop();
     });
+
+    if (window.MutationObserver) {
+      themeObserver = new MutationObserver(() => onThemeChange());
+      themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class'],
+      });
+      onCleanup(() => themeObserver?.disconnect());
+    }
 
     resize();
     updateScrollActive();

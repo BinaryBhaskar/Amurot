@@ -1,6 +1,9 @@
 @import "tailwindcss";
 @source "./**/*.{js,jsx,ts,tsx,html}";
 
+/* Tailwind v4: enable class-based dark mode (we toggle `.dark` on <html>). */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
@@ -11,7 +14,7 @@
   }
 
   body {
-    @apply font-sans bg-white text-zinc-900 antialiased;
+    @apply font-sans bg-white text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100;
   }
 
   ::selection {
@@ -21,7 +24,7 @@
 
 @layer components {
   .skip-link {
-    @apply sr-only focus:not-sr-only focus:fixed focus:left-6 focus:top-6 focus:z-50 focus:rounded-full focus:border focus:border-zinc-200/70 focus:bg-white/90 focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-zinc-900 focus:shadow-sm focus:shadow-black/5 focus:outline-none focus:ring-2 focus:ring-sky-200;
+    @apply sr-only focus:not-sr-only focus:fixed focus:left-6 focus:top-6 focus:z-50 focus:rounded-full focus:border focus:border-zinc-200/70 focus:bg-white/90 focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-zinc-900 focus:shadow-sm focus:shadow-black/5 focus:outline-none focus:ring-2 focus:ring-sky-200 dark:focus:border-zinc-800/70 dark:focus:bg-zinc-950/90 dark:focus:text-zinc-100;
   }
 
   .btn {
@@ -29,11 +32,11 @@
   }
 
   .btn-primary {
-    @apply bg-zinc-900 text-white shadow-sm shadow-black/5 hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-sky-200 focus:ring-offset-2 focus:ring-offset-white;
+    @apply bg-zinc-900 text-white shadow-sm shadow-black/5 hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-sky-200 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-zinc-950;
   }
 
   .card {
-    @apply rounded-2xl border border-zinc-200/60 bg-linear-to-b from-white/85 to-white/60;
+    @apply rounded-2xl border border-zinc-200/60 bg-linear-to-b from-white/85 to-white/60 dark:border-white/10 dark:from-white/5 dark:to-white/0;
   }
 
   .card-hover {
@@ -41,7 +44,7 @@
   }
 
   .badge {
-    @apply inline-flex items-center rounded-full border border-zinc-200/70 bg-white/70 px-2.5 py-1 text-xs font-medium text-zinc-600;
+    @apply inline-flex items-center rounded-full border border-zinc-200/70 bg-white/70 px-2.5 py-1 text-xs font-medium text-zinc-600 dark:border-white/10 dark:bg-white/5 dark:text-zinc-300;
   }
 }
 

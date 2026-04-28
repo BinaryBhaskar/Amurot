@@ -5,18 +5,21 @@ export default function About() {
         <div className="pointer-events-none absolute inset-0 hidden md:block" data-dotfield aria-hidden="true">
           <canvas className="absolute inset-0 h-full w-full" data-dotfield-canvas></canvas>
           <div aria-hidden="true" className="absolute inset-0">
-            <div className="absolute inset-0 bg-linear-to-br from-sky-200/18 via-transparent to-violet-200/14"></div>
-            <div className="absolute inset-0 bg-linear-to-b from-white/0 via-white/10 to-white/35"></div>
+            <div className="absolute inset-0 bg-linear-to-br from-sky-200/18 via-transparent to-violet-200/14 dark:from-sky-500/10 dark:to-violet-500/10"></div>
+            <div className="absolute inset-0 bg-linear-to-b from-white/0 via-white/10 to-white/35 dark:from-zinc-950/0 dark:via-zinc-950/25 dark:to-zinc-950/55"></div>
           </div>
         </div>
 
         <div className="relative z-10 grid gap-12 md:grid-cols-2 md:items-start">
-          <h2 id="about-title" className="amurot-reveal text-2xl font-medium tracking-tight text-zinc-950 md:text-3xl">
+          <h2
+            id="about-title"
+            className="amurot-reveal text-2xl font-medium tracking-tight text-zinc-950 dark:text-zinc-100 md:text-3xl"
+          >
             About Amurot
           </h2>
 
           <div
-            className="amurot-reveal space-y-4 text-pretty text-base leading-relaxed text-zinc-600"
+            className="amurot-reveal space-y-4 text-pretty text-base leading-relaxed text-zinc-600 dark:text-zinc-400"
             data-reveal-delay="70"
           >
             <p>
