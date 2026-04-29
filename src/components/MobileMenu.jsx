@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from 'react';
 export default function MobileMenu({ open, onClose, isDark, onToggleDarkMode }) {
   const closeBtnRef = useRef(null);
 
+  const TRANSITION_MS = 300;
+
   const [shouldRender, setShouldRender] = useState(open);
   const [isVisible, setIsVisible] = useState(open);
 
@@ -15,7 +17,7 @@ export default function MobileMenu({ open, onClose, isDark, onToggleDarkMode }) 
       requestAnimationFrame(() => setIsVisible(true));
     } else {
       setIsVisible(false);
-      timeoutId = window.setTimeout(() => setShouldRender(false), 260);
+      timeoutId = window.setTimeout(() => setShouldRender(false), TRANSITION_MS);
     }
 
     return () => {
@@ -48,10 +50,10 @@ export default function MobileMenu({ open, onClose, isDark, onToggleDarkMode }) 
   const onNavClick = () => onClose();
 
   return (
-    <div className="fixed inset-0 z-50">
+    <div className={`fixed inset-0 z-50 ${isVisible ? 'pointer-events-auto' : 'pointer-events-none'}`}>
       <button
         type="button"
-        className={`absolute inset-0 transition-opacity duration-300 ease-out ${
+        className={`absolute inset-0 transition-opacity duration-300 ease-out pointer-events-auto ${
           isVisible ? 'opacity-100 bg-black/20 dark:bg-black/50' : 'opacity-0 bg-black/0'
         }`}
         aria-label="Close menu"
@@ -59,7 +61,7 @@ export default function MobileMenu({ open, onClose, isDark, onToggleDarkMode }) 
       />
 
       <aside
-        className={`absolute right-0 top-0 h-full w-[340px] max-w-[92vw] bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 shadow-xl transition-transform duration-300 ease-out ${
+        className={`absolute right-0 top-0 h-full w-[340px] max-w-[92vw] bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 shadow-xl transition-transform duration-300 ease-out pointer-events-auto ${
           isVisible ? 'translate-x-0' : 'translate-x-full'
         }`}
         role="dialog"
